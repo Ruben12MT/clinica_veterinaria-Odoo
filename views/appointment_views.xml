@@ -33,6 +33,7 @@
                         <group>
                             <field name="name"/>
                             <field name="color" widget="color_picker"/>
+                            <!-- <field name="veterinarian_id"/> -->
                             <field name="pet_id"/>
 
                         </group>
@@ -71,6 +72,11 @@
                             <br/>
                             <img t-if="o.pet_id.image" t-att-src="image_data_uri(o.pet_id.image)" style="max-height: 150px; max-width: 150px; margin-top: 10px"/>
                         </div>
+                        <!-- <p>
+                            <strong>Veterinario asignado:</strong>
+                            <span t-field="o.veterinarian_id"/>
+                        </p> -->
+
                         <p>
                             <strong>Fecha:</strong>
                             <span t-field="o.date"/>

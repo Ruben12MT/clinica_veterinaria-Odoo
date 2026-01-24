@@ -17,13 +17,9 @@ class Appointment(models.Model):
     urgency = fields.Boolean(string='¿Es una urgencia?')
 
     pet_id = fields.Many2one('clinica.pet', string='Mascota')    
-<<<<<<< Updated upstream
-    veterinarian_id = fields.Many2one('clinica.person', string='Veterinario', domain=[('license_number', '!=', False)])
-=======
-    veterinarian_id = fields.Many2one('clinica.veterinarian', string='Veterinario asignado')    
+    veterinarian_id = fields.Many2one('clinica.person', string='Veterinario asignado', domain=[('license_number', '!=', False)])
     appointment_ids = fields.One2many('clinica.appointment', 'pet_id', string='Historial de citas', readonly=True)
     treatment_ids = fields.Many2many('clinica.treatment', string='Tratamientos')
->>>>>>> Stashed changes
 
     def action_done(self):
         for record in self:

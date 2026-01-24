@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields
-#Hereda de Persona: Num Colegiado, Especialidad, Horario
-class Veterinario(models.Model):
-    _inherit = 'clinica.person'
+
+class Veterinarian(models.Model):
+    _name = 'clinica.veterinarian'
+    _inherits = {'clinica.person': 'person_id'}
+    _description = 'Veterinario'
 
     license_number  = fields.Char(string='Número de Colegiado', required=True)
     specialty  = fields.Selection([

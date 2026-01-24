@@ -21,7 +21,7 @@ class Pet(models.Model):
     agressive = fields.Boolean('Agresivo')
     birthday = fields.Date('Fecha de nacimiento', required=True)
     appointment_ids = fields.One2many('clinica.appointment', 'pet_id', string='Historial de citas', readonly=True)
-    # owner_id = fields.Many2one('clinica.owner', string='Dueño')   
+    owner_id = fields.Many2one('clinica.owner', string='Dueño') 
     
     @api.depends('birthday')
     def _compute_age(self):

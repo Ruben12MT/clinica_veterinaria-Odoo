@@ -7,7 +7,7 @@
             <tree string="Mascotas">
                 <field name="image" widget="image" options="{'size': (128, 128)}"/>
                 <field name="name"/>
-                <!-- <field name="owner_id"/> -->
+                <field name="owner_id"/>
                 <field name="species"/>
                 <field name="breed"/>
                 <field name="age"/>
@@ -35,7 +35,7 @@
                         <field name="birthday" />
                         <field name="age"/>
                         <field name="agressive" />
-                        <!-- <field name="owner_id"/> -->
+                        <field name="owner_id"/>
                     </group>
                     <group>
                         <field name="notes"/>
@@ -56,7 +56,7 @@
                 <field name="name"/>
                 <field name="species"/>
                 <field name="age"/>
-                <!-- <field name="owner_id"/> -->
+                <field name="owner_id"/>
                 <field name="image"/>
                 <field name="agressive"/>
                 <templates>
@@ -80,8 +80,8 @@
                                         <span class="badge rounded-pill text-bg-danger">Agresivo</span>
                                     </t>
                                 </div>
-                                <!-- <div>Owner: <t t-esc="record.owner_id.value"/>
-                                </div> -->
+                                <div>Owner: <t t-esc="record.owner_id.value"/>
+                                </div>
                             </div>
                         </div>
                     </t>

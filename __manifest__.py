@@ -27,6 +27,7 @@
         'views/menus.xml',
         'views/pet_views.xml',
         'views/appointment_views.xml',
+        'views/veterinarian_view.xml',
 
     ],
     # only loaded in demonstration mode

@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_clinica_pet,clinica.pet,model_clinica_pet,base.group_user,1,1,1,1
 access_clinica_appointment,clinica.appointment,model_clinica_appointment,base.group_user,1,1,1,1
+access_clinica_person,clinica.person,model_clinica_person,base.group_user,1,1,1,1

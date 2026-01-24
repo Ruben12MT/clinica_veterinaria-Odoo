@@ -15,7 +15,7 @@ class Appointment(models.Model):
             ], default='pending', string="Estado de la solicitud", readonly=True)
     color = fields.Integer(string='Color')
     pet_id = fields.Many2one('clinica.pet', string='Mascota')    
-    # veterinarian_id = fields.Many2one('clinica.veterinarian', string='Veterinario')    
+    veterinarian_id = fields.Many2one('clinica.person', string='Veterinario', domain=[('license_number', '!=', False)])
 
     def action_done(self):
         for record in self:

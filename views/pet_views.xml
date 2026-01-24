@@ -11,6 +11,9 @@
                 <field name="species"/>
                 <field name="breed"/>
                 <field name="age"/>
+                <field name="agressive" />
+                <field name="birthday" />
+
 
             </tree>
         </field>
@@ -29,7 +32,9 @@
                         <field name="name"/>
                         <field name="species"/>
                         <field name="breed"/>
+                        <field name="birthday" />
                         <field name="age"/>
+                        <field name="agressive" />
                         <!-- <field name="owner_id"/> -->
                     </group>
                     <group>
@@ -42,7 +47,7 @@
     </record>
 
     <record id="pet_view_kanban" model="ir.ui.view">
-        
+
         <field name="name">pet.view.kanban</field>
         <field name="model">clinica.pet</field>
         <field name="arch" type="xml">
@@ -53,6 +58,7 @@
                 <field name="age"/>
                 <!-- <field name="owner_id"/> -->
                 <field name="image"/>
+                <field name="agressive"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
@@ -67,7 +73,12 @@
                                     Especie: <t t-esc="record.species.value"/>
                                 </div>
                                 <div>Años: <t t-esc="record.age.value"/>
-                                    años
+                                    años   
+                                </div>
+                                <div>
+                                    <t t-if="record.agressive.raw_value">
+                                        <span class="badge rounded-pill text-bg-danger">Agresivo</span>
+                                    </t>
                                 </div>
                                 <!-- <div>Owner: <t t-esc="record.owner_id.value"/>
                                 </div> -->

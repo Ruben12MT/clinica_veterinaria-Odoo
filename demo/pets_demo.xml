@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-
-        <record id="demo_pet_rex" model="clinica.pet">
-            <field name="name">Rex</field>
+        <record id="pet_firulais" model="clinica.pet">
+            <field name="name">Firulais</field>
             <field name="species">dog</field>
-            <field name="age">5</field>
-            <field name="breed">Pastor Alemán</field>
-            <!-- <field name="owner_id" ref="demo_owner_juan"/> -->
-            <field name="notes">Muy juguetón, le dan miedo los petardos.</field>
-            <field name="image" type="base64" file="base/static/img/avatar_grey.png"/>
+            <field name="age">5</field> 
+            <field name="birthday">2019-05-10</field>
+            <field name="breed">Golden Retriever</field>
+            <field name="agressive" eval="False"/>
         </record>
 
-        <record id="demo_pet_luna" model="clinica.pet">
-            <field name="name">Luna</field>
+        <record id="pet_michi" model="clinica.pet">
+            <field name="name">Michi</field>
             <field name="species">cat</field>
             <field name="age">2</field>
+            <field name="birthday">2022-08-15</field>
             <field name="breed">Siamés</field>
-            <!-- <field name="owner_id" ref="demo_owner_juan"/> -->
-            <field name="notes">Tiene alergia a ciertos piensos.</field>
-            <field name="image" type="base64" file="base/static/img/avatar_grey.png"/>
+            <field name="agressive" eval="True"/>
+        </record>
+
+        <record id="pet_paco" model="clinica.pet">
+            <field name="name">Paco</field>
+            <field name="species">bird</field>
+            <field name="age">1</field>
+            <field name="birthday">2023-01-20</field>
+            <field name="breed">Loro</field>
+            <field name="agressive" eval="False"/>
+        </record>
+
+        <record id="pet_rex" model="clinica.pet">
+            <field name="name">Rex</field>
+            <field name="species">reptile</field>
+            <field name="age">3</field>
+            <field name="birthday">2021-11-02</field>
+            <field name="breed">Iguana</field>
+            <field name="agressive" eval="False"/>
         </record>
     </data>
 </odoo>

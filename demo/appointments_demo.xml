@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="demo_appointment_1" model="clinica.appointment">
-            <field name="pet_id" ref="demo_pet_rex"/>
-            <field name="date" eval="(datetime.now() + relativedelta(days=1, hour=10)).strftime('%Y-%m-%d %H:%M:%S')"/>
-            <field name="reason">Vacunación anual obligatoria.</field>
-            <field name="state">pending</field>
-            <field name="color">4</field> 
+        <record id="appt_1" model="clinica.appointment">
+            <field name="date">2026-01-25 10:00:00</field>
+            <field name="reason">Revisión anual y vacunas</field>
+            <field name="urgency" eval="False"/>
+            <field name="pet_id" ref="pet_firulais"/>
+            <field name="treatment_ids" eval="[(6, 0, [ref('treatment_vaccine')])]"/>
         </record>
 
-        <record id="demo_appointment_2" model="clinica.appointment">
-            <field name="pet_id" ref="demo_pet_luna"/>
-            <field name="date" eval="(datetime.now() - relativedelta(days=1, hour=16, minute=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
-            <field name="reason">Revisión post-operatoria satisfactoria.</field>
+        <record id="appt_2" model="clinica.appointment">
+            <field name="date">2026-01-25 10:30:00</field>
+            <field name="reason">Accidente doméstico - Cojera</field>
+            <field name="urgency" eval="True"/>
+            <field name="pet_id" ref="pet_michi"/>
+            <field name="treatment_ids" eval="[(6, 0, [ref('treatment_xray')])]"/>
+        </record>
+
+        <record id="appt_3" model="clinica.appointment">
+            <field name="date">2026-01-30 12:00:00</field>
+            <field name="reason">Corte de uñas y limpieza</field>
+            <field name="urgency" eval="False"/>
+            <field name="pet_id" ref="pet_paco"/>
+            <field name="treatment_ids" eval="[(6, 0, [ref('treatment_cleaning')])]"/>
+        </record>
+
+        <record id="appt_4" model="clinica.appointment">
+            <field name="date">2026-01-20 09:00:00</field>
+            <field name="reason">Control de parásitos</field>
+            <field name="urgency" eval="False"/>
             <field name="state">done</field>
-            <field name="color">2</field>
+            <field name="pet_id" ref="pet_rex"/>
+            <field name="treatment_ids" eval="[(6, 0, [ref('treatment_deworming')])]"/>
         </record>
     </data>
 </odoo>

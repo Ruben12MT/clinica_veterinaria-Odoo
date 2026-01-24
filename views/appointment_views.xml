@@ -7,9 +7,13 @@
             <tree string="Citas">
                 <field name="name"/>
                 <field name="pet_id"/>
+                <field name="veterinarian_id"/>
                 <field name="reason"/>
                 <field name="state"/>
                 <field name="date"/>
+                <field name="urgency"/>
+                <field name="treatment_ids"/>
+
             </tree>
         </field>
     </record>
@@ -31,17 +35,18 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="urgency"/>
                             <field name="name"/>
                             <field name="color" widget="color_picker"/>
                             <field name="veterinarian_id"/>
                             <field name="pet_id"/>
-
                         </group>
                     </group>
                     <group string="Detalles">
 
                         <field name="date"/>
                         <field name="reason"/>
+                        <field name="treatment_ids"/>
                     </group>
                 </sheet>
             </form>
@@ -96,7 +101,7 @@
     </template>
 
     <record id="appointment_view_calendar" model="ir.ui.view">
-        <field name="name">appointment.view.calendar</field>
+        <field name="name">Calendario de Citas</field>
         <field name="model">clinica.appointment</field>
         <field name="arch" type="xml">
             <calendar string="Consultar Fechas de citas" date_start="date" date_stop="date" mode="month" color="color">

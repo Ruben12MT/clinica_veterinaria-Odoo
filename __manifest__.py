@@ -33,6 +33,7 @@
     # only loaded in demonstration mode
     'demo': [
         'demo/pets_demo.xml',
+        'demo/treatments_demo.xml',
         'demo/appointments_demo.xml',
 
     ],

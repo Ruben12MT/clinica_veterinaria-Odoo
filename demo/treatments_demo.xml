@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data noupdate="1">
+        <record id="treatment_vaccine" model="clinica.treatment">
+            <field name="name">Vacunación Rabia</field>
+        </record>
+        <record id="treatment_deworming" model="clinica.treatment">
+            <field name="name">Desparasitación Interna</field>
+        </record>
+        <record id="treatment_xray" model="clinica.treatment">
+            <field name="name">Radiografía de Tórax</field>
+        </record>
+        <record id="treatment_cleaning" model="clinica.treatment">
+            <field name="name">Limpieza Dental</field>
+        </record>
+    </data>
+</odoo>

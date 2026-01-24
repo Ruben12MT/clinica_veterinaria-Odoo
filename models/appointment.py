@@ -5,7 +5,7 @@ class Appointment(models.Model):
     _name = 'clinica.appointment'
     _description = 'Cita'
     
-    name = fields.Char(string="Cita del", compute="_compute_name", store=True)    
+    name = fields.Char(string="IDENTIFICADOR", compute="_compute_name", store=True)    
     date = fields.Datetime(string="Fecha y Hora" ,required=True)
     reason = fields.Text(string="Razón") 
     state = fields.Selection([ 
@@ -14,8 +14,16 @@ class Appointment(models.Model):
             ('cancelled', 'Cancelada'), 
             ], default='pending', string="Estado de la solicitud", readonly=True)
     color = fields.Integer(string='Color')
+    urgency = fields.Boolean(string='¿Es una urgencia?')
+
     pet_id = fields.Many2one('clinica.pet', string='Mascota')    
+<<<<<<< Updated upstream
     veterinarian_id = fields.Many2one('clinica.person', string='Veterinario', domain=[('license_number', '!=', False)])
+=======
+    veterinarian_id = fields.Many2one('clinica.veterinarian', string='Veterinario asignado')    
+    appointment_ids = fields.One2many('clinica.appointment', 'pet_id', string='Historial de citas', readonly=True)
+    treatment_ids = fields.Many2many('clinica.treatment', string='Tratamientos')
+>>>>>>> Stashed changes
 
     def action_done(self):
         for record in self:
@@ -29,11 +37,14 @@ class Appointment(models.Model):
         for record in self:
             record.state = 'pending'
     
-    @api.depends('date') 
+    @api.depends('date', 'urgency') 
     def _compute_name(self): 
         for record in self: 
             if record.date: 
+                urgencia = ""
+                if(record.urgency):
+                    urgencia = "_URG"
                 local_date = fields.Datetime.context_timestamp(record, record.date)
-                record.name = local_date.strftime("%Y-%m-%d %H:%M") 
+                record.name = "APPT_" + local_date.strftime("%Y-%m-%d_%H-%M") + str(urgencia)
             else: 
                 record.name = "Appointment"

@@ -7,6 +7,7 @@
             <field name="urgency" eval="False"/>
             <field name="pet_id" ref="pet_firulais"/>
             <field name="treatment_ids" eval="[(6, 0, [ref('treatment_vaccine')])]"/>
+            <field name="veterinarian_id" ref="veterinarian_1"/>
         </record>
 
         <record id="appt_2" model="clinica.appointment">
@@ -15,6 +16,7 @@
             <field name="urgency" eval="True"/>
             <field name="pet_id" ref="pet_michi"/>
             <field name="treatment_ids" eval="[(6, 0, [ref('treatment_xray')])]"/>
+            <field name="veterinarian_id" ref="veterinarian_2"/>
         </record>
 
         <record id="appt_3" model="clinica.appointment">
@@ -23,6 +25,7 @@
             <field name="urgency" eval="False"/>
             <field name="pet_id" ref="pet_paco"/>
             <field name="treatment_ids" eval="[(6, 0, [ref('treatment_cleaning')])]"/>
+            <field name="veterinarian_id" ref="veterinarian_3"/>
         </record>
 
         <record id="appt_4" model="clinica.appointment">
@@ -32,6 +35,7 @@
             <field name="state">done</field>
             <field name="pet_id" ref="pet_rex"/>
             <field name="treatment_ids" eval="[(6, 0, [ref('treatment_deworming')])]"/>
+            <field name="veterinarian_id" ref="veterinarian_4"/>
         </record>
     </data>
 </odoo>

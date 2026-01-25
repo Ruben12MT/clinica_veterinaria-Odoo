@@ -8,6 +8,7 @@
             <field name="birthday">2019-05-10</field>
             <field name="breed">Golden Retriever</field>
             <field name="agressive" eval="False"/>
+            <field name="owner_id" ref="owner_1"/>
         </record>
 
         <record id="pet_michi" model="clinica.pet">
@@ -17,6 +18,7 @@
             <field name="birthday">2022-08-15</field>
             <field name="breed">Siamés</field>
             <field name="agressive" eval="True"/>
+            <field name="owner_id" ref="owner_2"/>
         </record>
 
         <record id="pet_paco" model="clinica.pet">
@@ -26,6 +28,7 @@
             <field name="birthday">2023-01-20</field>
             <field name="breed">Loro</field>
             <field name="agressive" eval="False"/>
+            <field name="owner_id" ref="owner_3"/>
         </record>
 
         <record id="pet_rex" model="clinica.pet">
@@ -35,6 +38,7 @@
             <field name="birthday">2021-11-02</field>
             <field name="breed">Iguana</field>
             <field name="agressive" eval="False"/>
+            <field name="owner_id" ref="owner_4"/>
         </record>
     </data>
 </odoo>

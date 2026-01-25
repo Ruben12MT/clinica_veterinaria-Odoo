@@ -32,9 +32,10 @@
     ],
     # only loaded in demonstration mode
     'demo': [
+        'demo/veterinarian_demo.xml',
+        'demo/owner_demo.xml',
         'demo/pets_demo.xml',
         'demo/treatments_demo.xml',
         'demo/appointments_demo.xml',
-
     ],
 }

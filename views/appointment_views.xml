@@ -59,6 +59,7 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">clinica.report_appointment_template</field>
         <field name="report_file">clinica.report_appointment_template</field>
+        <field name="print_report_name">(object.name)</field>
         <field name="binding_model_id" ref="model_clinica_appointment"/>
         <field name="binding_type">report</field>
     </record>
@@ -68,32 +69,112 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <h2>Resumen de Cita</h2>
+                        <h2>Resumen de Cita <span t-field="o.name"/>
+                        </h2>
+                        <hr/>
 
-                        <strong>Mascota:</strong>
-                        <span t-field="o.pet_id.name"/>
-                        <div t-if="o.pet_id.image" style="margin-top: 10px; margin-bottom: 10px;">
-                            <strong>Foto de la mascota:</strong>
-                            <br/>
-                            <img t-if="o.pet_id.image" t-att-src="image_data_uri(o.pet_id.image)" style="max-height: 150px; max-width: 150px; margin-top: 10px"/>
+                        <h3>Infomación de la mascota:</h3>
+                        <div style="margin-left: 20px">
+                            <div t-if="o.pet_id.agressive" style="color: red; margin-bottom: 10px">
+                                IMPORTANTE: El animal presenta comportamiento agresivo, se requiere especial atención a este comportamiento por el bienestar de nuestros veterinarios.
+                            </div>
+                            <p>
+                                <strong>Nombre de la mascota:</strong>
+                                <span t-field="o.pet_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Especie:</strong>
+                                <span t-field="o.pet_id.species"/>
+                            </p>
+
+                            <div t-if="o.pet_id.breed">
+                                <p>
+                                    <strong>Raza:</strong>
+                                    <span t-field="o.pet_id.breed"/>
+                                </p>
+                            </div>
+
+                            <p>
+                                <strong>Edad:</strong>
+                                <span t-field="o.pet_id.age"/>
+                            </p>
+
+
+                            <p>
+                                <strong>Fecha de nacimiento:</strong>
+                                <span t-field="o.pet_id.age"/>
+                            </p>
+
+                            <div t-if="o.pet_id.image" style="margin-top: 10px; margin-bottom: 10px;">
+                                <strong>Foto:</strong>
+                                <br/>
+                                <img t-if="o.pet_id.image" t-att-src="image_data_uri(o.pet_id.image)" style="max-height: 150px; max-width: 150px; margin-top: 10px"/>
+                            </div>
+
+                            <!-- Si la mascota tiene dueño mostrar sus datos. -->
+                            <div t-if="o.pet_id.owner_id">
+                                <p>
+                                    <strong>Dueño de la mascota:</strong>
+                                    <span t-field="o.pet_id.owner_id.name"/>
+                                </p>
+
+                                <p>
+                                    <strong>DNI dueño:</strong>
+                                    <span t-field="o.pet_id.owner_id.dni"/>
+                                </p>
+
+                                <div t-if="o.pet_id.owner_id.phone">
+                                    <p>
+                                        <strong>Telefono dueño:</strong>
+                                        <span t-field="o.pet_id.owner_id.phone"/>
+                                    </p>
+                                </div>
+                            </div>
+
+
                         </div>
-                        <p>
-                            <strong>Veterinario asignado:</strong>
-                            <span t-field="o.veterinarian_id"/>
-                        </p>
 
-                        <p>
-                            <strong>Fecha:</strong>
-                            <span t-field="o.date"/>
-                        </p>
-                        <p>
-                            <strong>Motivo:</strong>
-                            <span t-field="o.reason"/>
-                        </p>
-                        <p>
-                            <strong>Estado:</strong>
-                            <span t-field="o.state"/>
-                        </p>
+                        <hr/>
+
+                        <h3>Sobre la cita:</h3>
+                        <div style="margin-left: 20px">
+                            <div t-if="o.urgency" style="color: red; margin-bottom: 10px">
+                                IMPORTANTE: Esta cita debe tomarse como una URGENCIA, el animal debe ser atendido lo más antes posible.
+                            </div>
+                            <p>
+                                <strong>Veterinario asignado:</strong>
+                                <span t-field="o.veterinarian_id"/>
+                            </p>
+                            <p>
+                                <strong>DNI veterinario:</strong>
+                                <span t-field="o.veterinarian_id.dni"/>
+                            </p>
+                            <div t-if="o.veterinarian_id.phone">
+                                <p>
+                                    <strong>Telefono veterinario:</strong>
+                                    <span t-field="o.veterinarian_id.phone"/>
+                                </p>
+                            </div>
+                            <p>
+                                <strong>Fecha:</strong>
+                                <span t-field="o.date"/>
+                            </p>
+                            <p>
+                                <strong>Motivo:</strong>
+                                <span t-field="o.reason"/>
+                            </p>
+                            <p>
+                                <strong>Estado:</strong>
+                                <span t-field="o.state"/>
+                            </p>
+
+                            <div t-if="o.treatment_ids">
+                                <p>
+                                    <strong>Tratamientos:</strong>
+                                    <span t-field="o.treatment_ids"/>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </t>
             </t>

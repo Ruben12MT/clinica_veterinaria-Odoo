@@ -13,8 +13,6 @@
                 <field name="age"/>
                 <field name="agressive" />
                 <field name="birthday" />
-
-
             </tree>
         </field>
     </record>

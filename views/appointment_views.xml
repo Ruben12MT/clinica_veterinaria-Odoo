@@ -102,7 +102,7 @@
 
                             <p>
                                 <strong>Fecha de nacimiento:</strong>
-                                <span t-field="o.pet_id.age"/>
+                                <span t-field="o.pet_id.birthday"/>
                             </p>
 
                             <div t-if="o.pet_id.image" style="margin-top: 10px; margin-bottom: 10px;">

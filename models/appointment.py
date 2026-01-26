@@ -16,8 +16,8 @@ class Appointment(models.Model):
     color = fields.Integer(string='Color')
     urgency = fields.Boolean(string='¿Es una urgencia?')
 
-    pet_id = fields.Many2one('clinica.pet', string='Mascota')    
-    veterinarian_id = fields.Many2one('clinica.veterinarian', string='Veterinario asignado')
+    pet_id = fields.Many2one('clinica.pet', string='Mascota', required=True)    
+    veterinarian_id = fields.Many2one('clinica.veterinarian', string='Veterinario asignado', required=True)
     appointment_ids = fields.One2many('clinica.appointment', 'pet_id', string='Historial de citas', readonly=True)
     treatment_ids = fields.Many2many('clinica.treatment', string='Tratamientos')
 

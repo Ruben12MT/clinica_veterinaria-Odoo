@@ -1,26 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Vista Lista (Tree) -->
-    <record id="veterinarian_view_tree" model="ir.ui.view">
-        <field name="name">clinica.veterinarian.tree</field>
+    <record id="veterinarian_view_tree_inherited" model="ir.ui.view">
+        <field name="name">clinica.veterinarian.tree.inherit</field>
         <field name="model">clinica.veterinarian</field>
+        <field name="inherit_id" ref="clinica.view_person_tree"/>
         <field name="arch" type="xml">
-            <tree string="Veterinarios">
-                <field name="name"/>
-                <field name="dni"/>
+            <xpath expr="//field[@name='dni']" position="after">
                 <field name="license_number"/>
+                <field name="state"/>
                 <field name="specialty"/>
-                <field name="phone"/>
-            </tree>
+            </xpath>
         </field>
     </record>
 
     <!-- Vista Formulario (Form) -->
+    <record id="veterinarian_view_form_inherited" model="ir.ui.view">
+        <field name="name">clinica.veterinarian.form.inherit</field>
+        <field name="model">clinica.veterinarian</field>
+        <field name="inherit_id" ref="clinica.view_person_form"/>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[@name='person_sheet']" position="before">
+                <header>
+                    <button name="action_set_busy" string="Empezar Consulta" 
+                        type="object" states="available" class="oe_highlight"/>
+                    <button name="action_set_available" string="Finalizar Consulta" 
+                        type="object" states="busy"/>
+                    <button name="action_set_off" string="Dar de Baja" 
+                        type="object" states="available" class="oe_highlight"/>
+                    <button name="action_set_available" string="Dar de Alta" 
+                        type="object" states="off"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="available,busy,off"/>
+                </header>
+            </xpath>
+            <xpath expr="//group[@name='personal_info']" position="after">
+                <group string="Información Profesional">
+                    <group>
+                        <field name="license_number"/>
+                        <field name="specialty"/>
+                    </group>
+                    <group>
+                        <field name="schedule"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="appointment_ids"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!--
     <record id="veterinarian_view_form" model="ir.ui.view">
         <field name="name">clinica.veterinarian.form</field>
         <field name="model">clinica.veterinarian</field>
         <field name="arch" type="xml">
             <form string="Veterinarios">
+                <header>
+                    <button name="action_set_busy" string="Empezar Consulta" 
+                        type="object" states="available" class="oe_highlight"/>
+                    <button name="action_set_available" string="Finalizar Consulta" 
+                        type="object" states="busy"/>
+                    <button name="action_set_off" string="Dar de Baja" 
+                        type="object" states="available" class="oe_highlight"/>
+                    <button name="action_set_available" string="Dar de Alta" 
+                        type="object" states="off"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="available,busy,off"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="image" widget="image" options="{'size': (120, 120)}"/>
@@ -51,6 +100,7 @@
             </form>
         </field>
     </record>
+     -->
 
     <!-- VISTA KANBAN -->
     <record id="veterinarian_view_kanban" model="ir.ui.view">
@@ -61,6 +111,7 @@
                 <field name="id"/>
                 <field name="name"/>
                 <field name="specialty"/>
+                <field name="state"/>
                 <field name="license_number"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -73,7 +124,10 @@
                                     <field name="name"/>
                                 </strong>
                                 <div class="text-muted">
-                                    <field name="specialty"/>
+                                    <field name="state"/>
+                                </div>
+                                <div>
+                                    <span>Especialidad: </span><field name="specialty"/>
                                 </div>
                                 <div>
                                     <span>Lic: </span><field name="license_number"/>
@@ -97,12 +151,27 @@
         </field>
     </record>
 
-
     <!-- Acción para abrir Veterinarios -->
     <record id="veterinarian_action" model="ir.actions.act_window">
         <field name="name">Veterinarios</field>
         <field name="res_model">clinica.veterinarian</field>
         <field name="view_mode">tree,form,kanban,graph</field>
+    </record>
+
+    <!-- Vinculamos la vista TREE heredada a la acción -->
+    <record id="action_veterinarian_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="veterinarian_view_tree_inherited"/>
+        <field name="act_window_id" ref="veterinarian_action"/>
+    </record>
+
+    <!-- Vinculamos la vista FORM heredada a la acción -->
+    <record id="action_veterinarian_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="veterinarian_view_form_inherited"/>
+        <field name="act_window_id" ref="veterinarian_action"/>
     </record>
 
     <!-- Menú -->

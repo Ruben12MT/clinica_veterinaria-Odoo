@@ -18,7 +18,7 @@
             <field name="birthday">2022-08-15</field>
             <field name="breed">Siamés</field>
             <field name="agressive" eval="True"/>
-            <field name="owner_id" ref="owner_2"/>
+            <field name="owner_id" ref="owner_1"/>
         </record>
 
         <record id="pet_paco" model="clinica.pet">

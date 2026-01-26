@@ -7,7 +7,7 @@
             <field name="phone">912384678</field>
             <field name="address">Calle Principal, 123</field>
             <field name="bank_account">1426794930</field>
-            <field name="debts">100</field>
+            <field name="debts">300</field>
         </record>
 
         <record id="owner_2" model="clinica.owner">

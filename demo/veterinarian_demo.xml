@@ -9,6 +9,7 @@
             <field name="license_number">LIC-001</field>
             <field name="specialty">dogs</field>
             <field name="schedule">De 9:00 a 18:00</field>
+            <field name="state">available</field>
         </record>
 
         <record id="veterinarian_2" model="clinica.veterinarian">
@@ -19,6 +20,7 @@
             <field name="license_number">LIC-002</field>
             <field name="specialty">cats</field>
             <field name="schedule">De 10:00 a 19:00</field>
+            <field name="state">available</field>
         </record>
 
         <record id="veterinarian_3" model="clinica.veterinarian">
@@ -29,6 +31,7 @@
             <field name="license_number">LIC-003</field>
             <field name="specialty">birds</field>
             <field name="schedule">De 8:00 a 17:00</field>
+            <field name="state">busy</field>
         </record>
 
         <record id="veterinarian_4" model="clinica.veterinarian">
@@ -39,6 +42,7 @@
             <field name="license_number">LIC-004</field>
             <field name="specialty">dogs</field>
             <field name="schedule">De 9:00 a 18:00</field>
+            <field name="state">off</field>
         </record>
     </data>
 </odoo>

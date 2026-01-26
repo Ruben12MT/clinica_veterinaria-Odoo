@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Lista (Tree) -->
+    <record id="view_person_tree" model="ir.ui.view">
+        <field name="name">clinica.person.tree</field>
+        <field name="model">clinica.person</field>
+        <field name="arch" type="xml">
+            <tree string="Personas">
+                <field name="name"/>
+                <field name="dni"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario (Form) -->
+    <record id="view_person_form" model="ir.ui.view">
+        <field name="name">clinica.person.form</field>
+        <field name="model">clinica.person</field>
+        <field name="arch" type="xml">
+            <form string="Persona">
+                <sheet name="person_sheet">
+                    <group>
+                        <field name="image" widget="image" options="{'size': (120, 120)}"/>
+                    </group>
+                    <group string="Información Personal" name="personal_info">
+                        <group>
+                            <field name="name"/>
+                            <field name="dni"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="address"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

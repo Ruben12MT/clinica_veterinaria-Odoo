@@ -35,7 +35,7 @@
             <field name="state">done</field>
             <field name="pet_id" ref="pet_rex"/>
             <field name="treatment_ids" eval="[(6, 0, [ref('treatment_deworming')])]"/>
-            <field name="veterinarian_id" ref="veterinarian_4"/>
+            <field name="veterinarian_id" ref="veterinarian_2"/>
         </record>
     </data>
 </odoo>

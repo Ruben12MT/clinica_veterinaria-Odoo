@@ -1,51 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Vista Lista (Tree) -->
-    <record id="owner_view_tree" model="ir.ui.view">
-        <field name="name">clinica.owner.tree</field>
+    <record id="owner_view_tree_inherited" model="ir.ui.view">
+        <field name="name">clinica.owner.tree.inherit</field>
         <field name="model">clinica.owner</field>
+        <field name="inherit_id" ref="clinica.view_person_tree"/>
         <field name="arch" type="xml">
-            <tree string="Dueños">
-                <field name="name"/>
-                <field name="dni"/>
+            <xpath expr="//field[@name='phone']" position="after">
                 <field name="bank_account"/>
                 <field name="debts"/>
-                <field name="phone"/>
-            </tree>
+                <field name="risk_level" widget="badge" 
+                    decoration-danger="risk_level == 'high'" 
+                    decoration-warning="risk_level == 'medium'" 
+                    decoration-success="risk_level == 'low'"/>
+            </xpath>
         </field>
     </record>
 
     <!-- Vista Formulario (Form) -->
-    <record id="owner_view_form" model="ir.ui.view">
-        <field name="name">clinica.owner.form</field>
+    <record id="owner_view_form_inherited" model="ir.ui.view">
+        <field name="name">clinica.owner.form.inherit</field>
         <field name="model">clinica.owner</field>
+        <field name="inherit_id" ref="clinica.view_person_form"/>
+        <field name="priority">1</field>
         <field name="arch" type="xml">
-            <form string="Dueños">
-                <sheet>
+            <xpath expr="//group[@name='personal_info']" position="after">
+                <group string="Información Financiera">
                     <group>
-                        <field name="image" widget="image" options="{'size': (120, 120)}"/>
+                        <field name="bank_account"/>
+                        <field name="debts"/>
                     </group>
-                    <group string="Información Personal">
-                        <group>
-                            <field name="name"/>
-                            <field name="dni"/>
-                        </group>
-                        <group>
-                            <field name="phone"/>
-                            <field name="address"/>
-                        </group>
-                    </group>
-                    <group string="Información Financiera">
-                        <group>
-                            <field name="bank_account"/>
-                            <field name="debts"/>
-                        </group>
-                    </group>
-                    <group>
-                        <field name="pet_ids"/>
-                    </group>
-                </sheet>
-            </form>
+                </group>
+                <group>
+                    <field name="pet_ids"/>
+                </group>
+            </xpath>
         </field>
     </record>
 
@@ -59,6 +48,7 @@
                 <field name="name"/>
                 <field name="bank_account"/>
                 <field name="debts"/>
+                <field name="risk_level"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
@@ -74,6 +64,9 @@
                                 </div>
                                 <div>
                                     <span>Deuda: </span><field name="debts"/>
+                                </div>
+                                <div t-if="record.risk_level.raw_value == 'high'" class="text-danger">
+                                    <strong>● ALTO RIESGO</strong>
                                 </div>
                             </div>
                         </div>
@@ -96,6 +89,7 @@
                 <separator/>
                 <filter string="Con Deudas" name="with_debts" domain="[('debts', '>', 0)]"/>
                 <filter string="Sin Deudas" name="no_debts" domain="[('debts', '=', 0)]"/>
+                <filter string="Alto Riesgo" name="high_risk" domain="[('risk_level', '=', 'high')]"/>
 
                 <group expand="0" string="Agrupar por">
                     <filter string="Dirección" name="group_address" context="{'group_by': 'address'}"/>
@@ -104,11 +98,99 @@
         </field>
     </record>
 
+    <!-- GENERAR INFORME -->
+    <record id="action_report_owner" model="ir.actions.report">
+        <field name="name">Ficha del Dueño</field>
+        <field name="model">clinica.owner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">clinica.report_owner_template</field>
+        <field name="report_file">clinica.report_owner_template</field>
+        <field name="print_report_name">'Ficha_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_clinica_owner"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_owner_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-8">
+                                <h2>Dueño: <span t-field="o.name"/></h2>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img t-if="o.image" t-att-src="image_data_uri(o.image)" style="max-height: 120px;"/>
+                            </div>
+                        </div>
+                        
+                        <hr/>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 style="text-decoration: underline;">Información Personal</h3>
+                                <p><strong>DNI:</strong> <span t-field="o.dni"/></p>
+                                <p><strong>Teléfono:</strong> <span t-field="o.phone"/></p>
+                                <p><strong>Dirección:</strong> <span t-field="o.address"/></p>
+                            </div>
+                            <hr/>
+                            <div class="col-6">
+                                <h3 style="text-decoration: underline;">Información Financiera</h3>
+                                <p><strong>Cuenta Bancaria:</strong> <span t-field="o.bank_account"/></p>
+                                <p><strong>Deuda Pendiente:</strong> 
+                                   <span t-field="o.debts" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                </p>
+                                <p><strong>Nivel de Riesgo:</strong> 
+                                    <span t-if="o.risk_level == 'low'" style="color: green; font-weight: bold;">Bajo</span>
+                                    <span t-if="o.risk_level == 'medium'" style="color: orange; font-weight: bold;">Moderado</span>
+                                    <span t-if="o.risk_level == 'high'" style="color: red; font-weight: bold;">ALTO RIESGO</span>
+                                </p>
+                            </div>
+                            <hr/>
+                            <div class="col-6">
+                                <h3 style="text-decoration: underline;">Mascotas Asociadas</h3>
+                                <div class="row">
+                                    <t t-foreach="o.pet_ids" t-as="pet">
+                                        <div class="col-4" style="border: 1px solid #eee; padding: 10px; margin-bottom: 10px;">
+                                            <p><strong>Nombre:</strong> <span t-field="pet.name"/></p>
+                                            <p><strong>Especie:</strong> <span t-field="pet.species"/></p>
+                                            <p><strong>Raza:</strong> <span t-field="pet.breed"/></p>
+                                            <p><strong>Edad:</strong> <span t-field="pet.age"/> años</p>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                            <div t-if="not o.pet_ids" class="alert alert-info">
+                                Este cliente no tiene mascotas registradas actualmente.
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
     <!-- Acción para abrir Dueños -->
     <record id="owner_action" model="ir.actions.act_window">
         <field name="name">Dueños</field>
         <field name="res_model">clinica.owner</field>
         <field name="view_mode">tree,form,kanban,search</field>
+    </record>
+
+    <!-- Vinculamos la vista TREE heredada a la acción -->
+    <record id="action_owner_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="owner_view_tree_inherited"/>
+        <field name="act_window_id" ref="owner_action"/>
+    </record>
+
+    <!-- Vinculamos la vista FORM heredada a la acción -->
+    <record id="action_owner_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="owner_view_form_inherited"/>
+        <field name="act_window_id" ref="owner_action"/>
     </record>
 
     <!-- Menú -->

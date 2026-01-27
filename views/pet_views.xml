@@ -35,10 +35,25 @@
                         <field name="agressive" />
                         <field name="owner_id"/>
                     </group>
-                    <group>
-                        <field name="notes"/>
-                        <field name="appointment_ids"/>
-                    </group>
+                    <notebook>
+                        <page>
+                            <group>
+                                <field name="notes"/>
+                            </group>
+
+                            <separator/>
+                            <field name="appointment_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="veterinarian_id"/>
+                                    <field name="reason"/>
+                                    <field name="state"/>
+                                    <field name="date"/>
+                                    <field name="urgency"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

@@ -46,7 +46,15 @@
                     </group>
                 </group>
                 <group>
-                    <field name="appointment_ids"/>
+                    <field name="appointment_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="reason"/>
+                            <field name="state"/>
+                            <field name="urgency"/>
+                        </tree>
+                    </field>
                 </group>
             </xpath>
         </field>
